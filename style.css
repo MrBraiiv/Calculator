@@ -118,3 +118,13 @@ button:active {
 .right button:last-child {
   margin-right: 12.5px;
 }
+
+.left button:first-child {
+  color: crimson;
+  font-weight: 600;
+}
+
+.operatorButton {
+  color: lightsalmon;
+  font-weight: 600;
+}
