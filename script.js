@@ -13,3 +13,13 @@ function multipy(x, y) {
 function divide(x, y) {
   return x / y;
 }
+
+//-----
+
+let firstNum;
+let operator;
+let secondNum;
+
+function operate(operator, firstNum, secondNum) {
+  return; //One of the operators' functions.
+}
