@@ -30,14 +30,21 @@ const screen = document.querySelector(".screen");
 
 const buttons = document.querySelectorAll("button");
 const inputButtons = document.querySelectorAll(".inputButton");
-const editorButtons = document.querySelectorAll(".editorButton");
+const resetButton = document.querySelector(".resetButton");
+const equalButton = document.querySelector(".equalButton");
 
 buttons.forEach((button) => button.addEventListener("click", displayInScreen));
 
 function displayInScreen(event) {
-  let screenContent = "";
-  if (event.target.className.includes("inputButton")) {
-    screenContent += event.target.textContent;
-    screen.textContent += screenContent;
+  switch (true) {
+    case event.target.className.includes("inputButton"):
+      screen.textContent += event.target.textContent;
+      break;
+
+    case event.target.className.includes("resetButton"):
+      screen.textContent = "";
+      break;
+
+    // case event.target.className.includes("equalButton"):
   }
 }
