@@ -38,7 +38,9 @@ buttons.forEach((button) => button.addEventListener("click", displayInScreen));
 function displayInScreen(event) {
   switch (true) {
     case event.target.className.includes("inputButton"):
-      screen.textContent += event.target.textContent;
+      if (screen.textContent.length <= 12) {
+        screen.textContent += event.target.textContent;
+      }
       break;
 
     case event.target.className.includes("resetButton"):
