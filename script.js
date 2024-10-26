@@ -74,7 +74,6 @@ const keys = {
 };
 
 document.addEventListener("keydown", (event) => {
-  cl(event.key);
   const button = keys[event.key];
   if (button) button.click();
 });
@@ -85,9 +84,6 @@ let equalFired = false;
 let operaotrFired = false;
 
 function displayInScreen(event) {
-  // const eventType = event.type;
-  // const eventKey = event.key;
-
   //---Needed functions:
 
   function pressedButtonIs(button) {
@@ -191,8 +187,4 @@ function displayInScreen(event) {
       }
       break;
   }
-}
-
-function cl(code) {
-  console.log(code);
 }
