@@ -50,6 +50,7 @@ const operatorButtons = document.querySelectorAll(".operatorButton");
 const resetButton = document.querySelector(".resetButton");
 const equalButton = document.querySelector(".equalButton");
 const decimalButton = document.querySelector(".decimalButton");
+const deleteButton = document.querySelector(".deleteButton");
 
 buttons.forEach((button) => button.addEventListener("click", displayInScreen));
 
@@ -113,6 +114,11 @@ function displayInScreen(event) {
       ) {
         screen.textContent += event.target.textContent;
       }
+      break;
+
+    case pressedButtonIs("deleteButton"):
+      screen.textContent = `${screen.textContent.slice(0, -1)}`;
+      changeNumberColor("black");
       break;
 
     case pressedButtonIs("resetButton"):
