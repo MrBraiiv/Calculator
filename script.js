@@ -20,9 +20,25 @@ let firstNum = 0;
 let operator = "";
 let secondNum = 0;
 
-// function operate(operator, firstNum, secondNum) {
-//   return; //One of the operators' functions.
-// }
+function operate(firstNum, operator, secondNum) {
+  switch (operator) {
+    case "+":
+      return add(firstNum, secondNum);
+      break;
+
+    case "-":
+      return subtract(firstNum, secondNum);
+      break;
+
+    case "×":
+      return multipy(firstNum, secondNum);
+      break;
+
+    case "÷":
+      return divide(firstNum, secondNum);
+      break;
+  }
+}
 
 //-----
 
