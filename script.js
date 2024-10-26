@@ -56,15 +56,35 @@ const arr = [];
 let equalFired = false;
 
 function displayInScreen(event) {
+  //---Needed functions:
+
+  function pressedButtonIs(button) {
+    return event.target.className.includes(button);
+  }
+
+  function resetOperation() {
+    firstNum = undefined;
+    secondNum = undefined;
+    operator = undefined;
+  }
+
+  function clearDisplay() {
+    screen.textContent = "";
+  }
+
+  function changeNumberColor(color) {
+    screen.style.color = color;
+  }
+
+  //-----
+
   switch (true) {
-    case event.target.className.includes("numberButton"):
+    case pressedButtonIs("numberButton"):
       if (equalFired && screen.textContent !== "") {
-        screen.textContent = "";
-        screen.style.color = "black";
+        clearDisplay();
+        changeNumberColor("black");
         arr.splice(0, arr.length);
-        firstNum = undefined;
-        secondNum = undefined;
-        operator = undefined;
+        resetOperation();
         equalFired = false;
       }
 
@@ -73,23 +93,23 @@ function displayInScreen(event) {
       }
       break;
 
-    case event.target.className.includes("resetButton"):
-      screen.textContent = "";
-      screen.style.color = "black";
+    case pressedButtonIs("resetButton"):
+      clearDisplay();
+      changeNumberColor("black");
       arr.splice(0, arr.length);
-      firstNum = undefined;
-      secondNum = undefined;
-      operator = undefined;
+      resetOperation();
       equalFired = false;
       break;
 
-    case event.target.className.includes("operatorButton"):
+    case pressedButtonIs("operatorButton"):
       arr.push(screen.textContent);
       arr.push(event.target.textContent);
-      screen.textContent = "";
+      clearDisplay();
+      changeNumberColor("black");
+      resetOperation();
       break;
 
-    case event.target.className.includes("equalButton"):
+    case pressedButtonIs("equalButton"):
       arr.push(screen.textContent);
       for (let i = 1; i <= arr.length; i + 2) {
         firstNum ??= +arr.splice(0, 1);
@@ -100,7 +120,7 @@ function displayInScreen(event) {
 
       screen.textContent = +firstNum.toFixed(2);
 
-      screen.style.color = "gold";
+      changeNumberColor("gold");
 
       equalFired = true;
 
