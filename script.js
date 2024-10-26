@@ -52,6 +52,32 @@ const equalButton = document.querySelector(".equalButton");
 const decimalButton = document.querySelector(".decimalButton");
 const deleteButton = document.querySelector(".deleteButton");
 
+const keys = {
+  "1": document.getElementById("1"),
+  "2": document.getElementById("2"),
+  "3": document.getElementById("3"),
+  "4": document.getElementById("4"),
+  "5": document.getElementById("5"),
+  "6": document.getElementById("6"),
+  "7": document.getElementById("7"),
+  "8": document.getElementById("8"),
+  "9": document.getElementById("9"),
+  "0": document.getElementById("0"),
+  "+": document.getElementById("+"),
+  "-": document.getElementById("-"),
+  "*": document.getElementById("*"),
+  "/": document.getElementById("/"),
+  ".": document.getElementById("."),
+  "Delete": document.getElementById("Delete"),
+  "Backspace": document.getElementById("Backspace"),
+  "Enter": document.getElementById("Enter"),
+};
+
+document.addEventListener("keydown", (event) => {
+  cl(event.key);
+  const button = keys[event.key];
+  if (button) button.click();
+});
 buttons.forEach((button) => button.addEventListener("click", displayInScreen));
 
 const arr = [];
@@ -59,6 +85,9 @@ let equalFired = false;
 let operaotrFired = false;
 
 function displayInScreen(event) {
+  // const eventType = event.type;
+  // const eventKey = event.key;
+
   //---Needed functions:
 
   function pressedButtonIs(button) {
@@ -131,12 +160,13 @@ function displayInScreen(event) {
       break;
 
     case pressedButtonIs("operatorButton"):
-      arr.push(screen.textContent);
-      arr.push(event.target.textContent);
-      // clearDisplay();
-      changeNumberColor("black");
-      resetOperation();
-      operaotrFired = true;
+      if (!operaotrFired) {
+        arr.push(screen.textContent);
+        arr.push(event.target.textContent);
+        changeNumberColor("black");
+        resetOperation();
+        operaotrFired = true;
+      }
       break;
 
     case pressedButtonIs("equalButton"):
