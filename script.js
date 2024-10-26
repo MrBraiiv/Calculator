@@ -16,9 +16,9 @@ function divide(x, y) {
 
 //-----
 
-let firstNum = 0;
-let operator = "";
-let secondNum = 0;
+let firstNum;
+let operator;
+let secondNum;
 
 function operate(firstNum, operator, secondNum) {
   switch (operator) {
@@ -52,9 +52,22 @@ const equalButton = document.querySelector(".equalButton");
 
 buttons.forEach((button) => button.addEventListener("click", displayInScreen));
 
+const arr = [];
+let equalFired = false;
+
 function displayInScreen(event) {
   switch (true) {
     case event.target.className.includes("numberButton"):
+      if (equalFired && screen.textContent !== "") {
+        screen.textContent = "";
+        screen.style.color = "black";
+        arr.splice(0, arr.length);
+        firstNum = undefined;
+        secondNum = undefined;
+        operator = undefined;
+        equalFired = false;
+      }
+
       if (screen.textContent.length <= 12) {
         screen.textContent += event.target.textContent;
       }
@@ -62,18 +75,39 @@ function displayInScreen(event) {
 
     case event.target.className.includes("resetButton"):
       screen.textContent = "";
+      screen.style.color = "black";
+      arr.splice(0, arr.length);
+      firstNum = undefined;
+      secondNum = undefined;
+      operator = undefined;
+      equalFired = false;
       break;
 
-    // case event.target.className.includes("operatorButton"):
-    /*
-    - Passes the number to first Num, the operator to operator, and clear screen.
-    */
+    case event.target.className.includes("operatorButton"):
+      arr.push(screen.textContent);
+      arr.push(event.target.textContent);
+      screen.textContent = "";
+      break;
 
-    // case event.target.className.includes("equalButton"):
+    case event.target.className.includes("equalButton"):
+      arr.push(screen.textContent);
+      for (let i = 1; i <= arr.length; i + 2) {
+        firstNum ??= +arr.splice(0, 1);
+        operator = arr.splice(0, 1).join("");
+        secondNum = +arr.splice(0, 1);
+        firstNum = operate(firstNum, operator, secondNum);
+      }
 
-    /*
-    - Passes the number to secondNum and 
-    - Bulid a method (maybe using target) to the operation function so it chooses the operation from above depending on the choosen operator.
-    */
+      screen.textContent = +firstNum.toFixed(2);
+
+      screen.style.color = "gold";
+
+      equalFired = true;
+
+      break;
   }
+}
+
+function cl(code) {
+  console.log(code);
 }
