@@ -49,11 +49,13 @@ const numberButtons = document.querySelectorAll(".numberButton");
 const operatorButtons = document.querySelectorAll(".operatorButton");
 const resetButton = document.querySelector(".resetButton");
 const equalButton = document.querySelector(".equalButton");
+const decimalButton = document.querySelector(".decimalButton");
 
 buttons.forEach((button) => button.addEventListener("click", displayInScreen));
 
 const arr = [];
 let equalFired = false;
+let operaotrFired = false;
 
 function displayInScreen(event) {
   //---Needed functions:
@@ -76,6 +78,10 @@ function displayInScreen(event) {
     screen.style.color = color;
   }
 
+  function NumberIsDividedByZero() {
+    return operator === "÷" && secondNum === 0;
+  }
+
   //-----
 
   switch (true) {
@@ -88,7 +94,23 @@ function displayInScreen(event) {
         equalFired = false;
       }
 
+      if (operaotrFired) {
+        clearDisplay();
+        operaotrFired = false;
+      }
+
       if (screen.textContent.length <= 12) {
+        screen.textContent += event.target.textContent;
+      }
+      break;
+
+    case pressedButtonIs("decimalButton"):
+      if (
+        screen.textContent !== "" &&
+        !screen.textContent.includes(".") &&
+        !operaotrFired &&
+        !equalFired
+      ) {
         screen.textContent += event.target.textContent;
       }
       break;
@@ -99,14 +121,16 @@ function displayInScreen(event) {
       arr.splice(0, arr.length);
       resetOperation();
       equalFired = false;
+      operaotrFired = false;
       break;
 
     case pressedButtonIs("operatorButton"):
       arr.push(screen.textContent);
       arr.push(event.target.textContent);
-      clearDisplay();
+      // clearDisplay();
       changeNumberColor("black");
       resetOperation();
+      operaotrFired = true;
       break;
 
     case pressedButtonIs("equalButton"):
@@ -115,15 +139,20 @@ function displayInScreen(event) {
         firstNum ??= +arr.splice(0, 1);
         operator = arr.splice(0, 1).join("");
         secondNum = +arr.splice(0, 1);
-        firstNum = operate(firstNum, operator, secondNum);
+        if (NumberIsDividedByZero()) {
+          firstNum = "Math Error!";
+        } else {
+          firstNum = operate(firstNum, operator, secondNum);
+        }
       }
 
-      screen.textContent = +firstNum.toFixed(2);
+      if (firstNum != undefined) {
+        if (isNaN(+firstNum)) screen.textContent = "Math Error!";
+        else screen.textContent = +firstNum.toFixed(2);
 
-      changeNumberColor("gold");
-
-      equalFired = true;
-
+        changeNumberColor("gold");
+        equalFired = true;
+      }
       break;
   }
 }
