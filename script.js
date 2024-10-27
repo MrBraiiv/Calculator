@@ -162,6 +162,7 @@ function displayInScreen(event) {
         changeNumberColor("black");
         resetOperation();
         operaotrFired = true;
+        equalFired = false;
       }
       break;
 
