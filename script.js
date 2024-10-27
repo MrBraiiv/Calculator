@@ -180,7 +180,8 @@ function displayInScreen(event) {
       }
 
       if (firstNum != undefined) {
-        if (isNaN(+firstNum)) screen.textContent = "Math Error!";
+        if (isNaN(+firstNum) || +firstNum >= 999999999999)
+          screen.textContent = "Math Error!";
         else screen.textContent = +firstNum.toFixed(2);
 
         changeNumberColor("gold");
